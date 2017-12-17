@@ -1,48 +1,40 @@
-function multiply(a, b) {
-  a = a !== undefined ? a : 1;
-  b = b !== undefined ? b : 1;
+"use strict";
+
+function multiply(a = 1, b = 1) {
   return a * b;
 }
 
-function operation(options) {
-  options.type = options.type || "add";
-  options.a = options.a !== undefined ? options.a : 1;
-  options.b = options.b !== undefined ? options.b : 1;
-  switch (options.type) {
+function operation({ type = "add", a = 1, b = 1 }) {
+  switch (type) {
     case "add":
-      return options.a + options.b;
+      return a + b;
     case "multiply":
-      return options.a * options.b;
+      return a * b;
     default:
       return undefined;
   }
 }
 
-function getMax() {
-  var values = [];
-  for (var i = 0; i < arguments.length; i++) {
-    var arg = arguments[i];
+function getMax(...args) {
+  let values = [];
+  for (const arg of args) {
     if (typeof arg === "number") {
       values.push(arg);
     } else if (arg instanceof Array) {
-      values = Array.concat(values, arg);
+      values = [...values, ...arg];
     }
   }
-  return Math.max.apply(Math, values);
+  return Math.max(...values);
 }
 
 function convertToArray(iterable) {
-  var a = [];
-  for (const v of iterable) {
-    a.push(v);
-  }
-  return a;
+  return [...iterable];
 }
 
 function createDate(arr) {
-  return new Date(arr[0], arr[1], arr[2], arr[3]);
+  return new Date(...arr);
 }
 
-function getDate(arr) {
-  return { year: arr[0], month: arr[1], day: arr[2] };
+function getDate([year, month, day]) {
+  return { year, month, day };
 }
