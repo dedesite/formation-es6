@@ -1,5 +1,16 @@
-function asyncFunc(func, callback) {
-  setTimeout(callback(func()), 200);
+"use strict";
+
+function asyncFunc(func) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const data = func();
+      if (data.err) {
+        reject(data.err);
+      } else {
+        resolve(data);
+      }
+    }, 200);
+  });
 }
 
 function getCreators() {
@@ -24,42 +35,39 @@ function getLanguages() {
   };
 }
 
-function getAsyncCreators(callback) {
-  asyncFunc(getCreators, function(data) {
-    callback(data.err, data.creators);
-  });
+function getAsyncCreators() {
+  return asyncFunc(getCreators).then(data => data.creators);
 }
 
-function getAsyncLanguageCreator(language, callback) {
-  asyncFunc(getLanguages, function(data) {
-    var lang = data.languages.find(function(lang) {
-      return lang.name === language;
-    });
-    if (lang) {
-      getAsyncCreators(function(err, data) {
-        var creator = data.find(function(creator) {
-          return creator.id === lang.creator;
-        });
-        callback(undefined, creator);
+function getAsyncLanguageCreator(language) {
+  let lang;
+  return asyncFunc(getLanguages)
+    .then(data => {
+      lang = data.languages.find(lang => {
+        return lang.name === language;
       });
-    } else {
-      callback("Unknow language", undefined);
-    }
-  });
+      if (lang) {
+        return getAsyncCreators();
+      } else {
+        return Promise.reject("Unknow language");
+      }
+    })
+    .then(data => {
+      const creator = data.find(creator => {
+        return creator.id === lang.creator;
+      });
+      if (creator) {
+        return creator;
+      } else {
+        return Promise.reject("Unknow creator");
+      }
+    });
 }
 
-function getAllData(callback) {
-  const allData = {};
-  asyncFunc(getLanguages, function(data) {
-    allData.languages = data.languages;
-    if (allData.creators) {
-      callback(err, allData);
+function getAllData() {
+  return Promise.all([asyncFunc(getLanguages), getAsyncCreators()]).then(
+    ([{ languages }, creators]) => {
+      return { languages, creators };
     }
-  });
-  getAsyncCreators(function(err, data) {
-    allData.creators = data;
-    if (allData.languages) {
-      callback(err, allData);
-    }
-  });
+  );
 }
