@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ES6 et TypeScript | Andréas Livet pour OpenSka</title>
+  <link href="css/highlight.min.css" rel="stylesheet">
+  <link href="css/markdown-slides.css" rel="stylesheet" />
+  <link href="css/devopsy.css" rel="stylesheet" />
+  <link href="css/effects.css" rel="stylesheet" />
+</head>
+<body>
+<div id="impress" data-transition-duration="1000">
+
+<div id="markdown" class="step slide markdown" data-rel-x="0" data-rel-y="900">
+# Formation Javascript Avancé
+## Andréas Livet
+### Floria Consulting
+### Du 15 au 16 janvier 2018
+
+-----
+
+# Références
+
+* Les excellents livres de Axel Rauschmayer sur [exploringjs.com](http://exploringjs.com/)
+* [Mozilla Developper Network](https://developer.mozilla.org/)
+
+-----
+
+# Petite histoire de Js
+
+Codé en 2 semaines
+
+"Simplement" dynamiser les pages web
+
+Adoption massive
+
+Pas de retour en arrière possible
+
+[Wat js](https://www.youtube.com/watch?v=ryJSRZzAvUs&t=25s)
+
+-----
+
+# Js aujourd'hui
+
+Présent partout sur le web
+
+Mais aussi sur les serveurs
+
+Les desktop, les smarphones...
+
+''
+
+-----
+
+# Js et la standardisation
+## EcmaScript
+
+Rapidement standardisé (1 an et demi)
+
+Importance des Gafam
+
+3ème édition vraiment connue (1999)
+
+1 version par an depuis 2015
+
+Evolutions fréquentes et graduelles
+
+-----
+
+# Étapes importantes
+
+3ème édition
+
+5ème édition ou ECMAScript 5 (ES5)
+
+ECMAScript 6 (ES6) ou ECMAScript 2015
+
+ECMAScript 2017
+
+-----
+
+# 3ème édition
+
+Le Js que tout le monde connaît
+
+try/catch, regex, API des String étendue etc.
+
+-----
+
+# 5ème édition ou ECMAScript 5 (ES5)
+
+Ajout de strict mode
+
+Accesseur
+
+Introspection
+
++ de fonction pour `Array`
+
+-----
+
+# ES 5 - strict mode
+## Généralités
+
+Sous ensemble plus sécurisé
+
+Déclaration `'use script';`
+
+Pour un fichier ou une fonction
+
+Pas de rétro compatibilité => attention aux mélanges
+
+-----
+
+# ES 5 - strict mode
+## Déclaration de variables forcée
+
+    function sloppyFunc() {
+        sloppyVar = 123;
+    }
+    sloppyFunc();  // creates global variable `sloppyVar`
+    console.log(sloppyVar);  // 123
+
+    function strictFunc() {
+        'use strict';
+        strictVar = 123;
+    }
+    strictFunc();  // ReferenceError: strictVar is not defined
+
+-----
+
+# ES 5 - strict mode
+## Gestion des paramètres
+
+Pas 2X les mêmes paramètres
+
+Pas de nom variable locale identique au paramètre
+
+Simplification de `arguments` => plus nécessaire en ES6
+
+-----
+
+# ES 5 - strict mode
+## `this` !== window
+
+Pas de `this` dans les fonctions en dehors des objets
+
+    function sloppyFunc() {
+      console.log(this === window);  // true
+    }
+
+    function strictFunc() {
+      'use strict';
+      console.log(this === undefined);  // true
+    }
+
+-----
+
+# ES 5 - strict mode
+## `this` !== window #2
+
+Oblige à utiliser `new`
+
+    function Point(x, y) {
+        'use strict';
+        this.x = x;
+        this.y = y;
+    }
+
+    > var pt = Point(3, 1);
+    TypeError: Cannot set property 'x' of undefined
+
+-----
+
+# ES 5 - strict mode
+## Autres modifications
+
+`eval()` plus sûr
+
+Pas de `delete` sur identifieur inconnu
+
+Erreur sur modification de propriété read-only
+
+Suppression du mot clé `with`
+
+Plus de notation octale pour les nombres `010`
+
+-----
+
+# ES 5 - Accesseurs
+
+    var obj = {
+        get foo() {
+            return 'getter';
+        },
+        set foo(value) {
+            console.log('setter: '+value);
+        }
+    };
+    > obj.foo = 'bla';
+    setter: bla
+    > obj.foo
+    'getter'
+
+-----
+
+# ES 5 - Object.defineProperty
+## Définitions
+
+    > var obj = {};
+    > Object.defineProperty(obj, 'foo', { configurable: true });
+    > Object.getOwnPropertyDescriptor(obj, 'foo')
+    { value: undefined,
+      writable: false,
+      enumerable: false,
+      configurable: true }
+
+-----
+
+# ES 5 - Object.defineProperty
+## Détails
+
+  * value => valeur de la propriété
+
+  * writable => strict mode uniquement
+
+  * enumerable => si `false` n'apparait pas dans `Object.getOwnPropertyNames(obj)` et `Object.keys(obj)`
+
+  * configurable => si `false` impossibilité de `delete` et de modification des attributs
+
+-----
+
+# ES 5 - Object.create
+
+    var obj = Object.create(Object.prototype, {
+        foo: { value: 123, enumerable: true },
+        bar: { value: 'abc', enumerable: true }
+    });
+
+
+-----
+
+# ES 5 - Object.preventExtensions
+
+    var obj = { foo: 'a' };
+    Object.preventExtensions(obj);
+    obj.bar = 'b';
+    // in strict mode
+    TypeError: Can't add property bar, object is not extensible
+-----
+
+# ES 5 - Object.freeze
+
+    var obj = { x: 17, y: ['a', 'b']};
+    Object.freeze(point);
+    obj.x = 2;
+    TypeError: Cannot assign to read-only property 'x'
+    obj.z = 123;
+    TypeError: Can't add property z, object is not extensible
+    obj.y.push('c'); // OK
+
+
+-----
+
+# ES 5 - Standardisation JSON
+
+    var json = '{"result":true, "count":42}';
+    var obj = JSON.parse(json)
+
+    JSON.stringify({ x: 5, y: 6 })
+    > "{"x":5,"y":6}"
+
+-----
+
+# ES 5 - Array
+## forEach
+
+    [ 'a', 'b', 'c' ].forEach(
+        function (elem, index) {  // (1)
+            console.log(index + '. ' + elem);
+        });
+    0. a
+    1. b
+    2. c
+
+-----
+
+# ES 5 - Array
+## indexOf et lastIndexOf
+
+    > var arr = [ 'a', 'b', 'c', 'd', 'c' ];
+    > arr.indexOf('b')
+    1
+    > arr.lastIndexOf('c')
+    4
+
+-----
+
+# ES 5 - Array
+## map
+
+    > [1,2,3].map(function (x) { return x*x })
+    [ 1, 4, 9 ]
+
+-----
+
+# ES 5 - Array
+## reduce et reduceRight
+
+    > var arr = [1, 2, 3, 4];
+    > arr.reduce(function(accumulator, currentValue) {
+      return accumulator + currentValue;
+    });
+    10
+
+-----
+
+# ES 5 - Array
+## some
+
+    function isBiggerThan10(element, index, array) {
+      return element > 10;
+    }
+
+    [2, 5, 8, 1, 4].some(isBiggerThan10);  // false
+    [12, 5, 8, 1, 4].some(isBiggerThan10); // true
+
+-----
+
+# ES 6 - ECMAScript 2015
+
+Mise à jour majeure
+
+Apport de nouveaux mots clés
+
+Approche "One Js"
+
+-----
+
+# ES 6
+## Problème de `var`
+
+    function foo() {
+      var bar = 0;
+      if(bar === 0) {
+        var bar = 1; // Même variable
+      }
+      // bar === 1
+    }
+
+-----
+
+# ES 6
+## Solution : `let`
+
+    function foo() {
+      let bar = 0;
+      if(bar === 0) {
+        let bar = 1; // Variable locale au scope
+      }
+      // bar === 0
+    }
+
+    let a = 10;
+    let a = 11;
+    // SyntaxError: redeclaration of let a
+
+-----
+
+# ES 6
+## `const`
+
+    const a = 10;
+    a = 11;
+    // TypeError: invalid assignment to const `a`
+    const obj = {};
+    obj.a = 10; // OK
+
+-----
+
+# ES 6
+## Template literals
+    
+Nouveau signe : \`\`
+
+    const str = `Multiple line string
+           are now possible.`
+    const interpolated = `Result = ${5 * 2}`;
+
+-----
+
+# ES 6
+## Abréviation pour les méthodes
+
+    const obj = {
+        myMethod(x, y) {
+            ···
+        }
+    };
+
+-----
+
+# ES 6
+## Abréviation pour les propriétés
+
+    const first = 'Jane';
+    const last = 'Doe';
+
+    const obj = { first, last };
+    // Same as:
+    const obj = { first: first, last: last };
+
+-----
+
+# ES 6
+## Noms calculés
+
+    const propKey = 'foo';
+    const obj = {
+        [propKey]: true,
+        ['b'+'ar']: 123
+    };
+    const obj = {
+        ['h'+'ello']() {
+            return 'hi';
+        }
+    };
+
+-----
+
+# ES 6
+## Object.assign()
+
+    var o1 = { a: 1 };
+    var o2 = { b: 2 };
+    var o3 = { c: 3 };
+
+    var obj = Object.assign(o1, o2, o3);
+    console.log(obj); // { a: 1, b: 2, c: 3 }
+    console.log(o1);  // { a: 1, b: 2, c: 3 }
+
+-----
+
+# ES 6
+## Arrow functions #1
+
+    var arr = [1, 2, 3];
+    var squares = arr.map(function (x) { return x * x });
+
+    const arr = [1, 2, 3];
+    const squares = arr.map(x => x * x);
+
+-----
+
+# ES 6
+## Arrow functions #2
+
+    function UiComponent() {
+        var button = document.getElementById('myButton');
+        button.addEventListener('click', () => {
+            console.log('CLICK');
+            this.handleClick(); // (A)
+        });
+    }
+
+-----
+
+Modules
+
+-----
+
+# Étapes importantes 
+## ES 6 - ECMAScript 2015 (2)
+
+Promises
+
+Iterator
+
+-----
+
+# Étapes importantes 
+## ES 6 - ECMAScript 2015 (3)
+
+Spread/Rest operator
+
+Meilleure "lib standard"
+
+for/of
+
+et bien d'autres améliorations...
+
+-----
+
+# Étapes importantes 
+## ECMAScript 2017
+
+async/await
+
+trailing comma
+
+SharedBufferArray et Atomics
+
+# Js et la standardisation
+## One Js
+
+Retro compatibilité => "One Js"
+
+-----
+
+# Anatomie d'un `new`
+
+    function newOperator(Constr, args) {
+        var thisValue = Object.create(Constr.prototype); // (1)
+        var result = Constr.apply(thisValue, args);
+        if (typeof result === 'object' && result !== null) {
+            return result; // (2)
+        }
+        return thisValue;
+    }
+
+-----
+
+# Plateformes hétérogènes
+## JS n'est pas le même partout
+
+Navigateurs pas tous au même niveau d'implémentation
+
+Navigateurs pas forcément à jour
+
+Node.js
+
+-----
+
+# Solution : les transpileurs !
+
+Babel pour ES6
+
+Traceur (plus trop utilisé)
+
+Typescript
+
+</div>
+</div>
+<script type="text/javascript" src="js/highlight.min.js"></script>
+<script type="text/javascript" src="js/mermaid.min.js"></script>
+<script type="text/javascript" src="js/markdown.js"></script>
+<script type="text/javascript" src="js/impress.js"></script>
+<script>impress().init();</script>
+</body>
+</html>
