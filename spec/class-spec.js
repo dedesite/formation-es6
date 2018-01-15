@@ -1,3 +1,5 @@
+import { Animal, Cat, Dog } from "../src/class";
+
 describe("Class", function() {
   it("Should create an instance of Animal", function() {
     const animal = new Animal();

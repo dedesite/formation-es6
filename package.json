@@ -18,7 +18,8 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "gulp-jasmine-browser": "^2.0.1",
-    "gulp-watch": "^4.3.11",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0"
   }
 }

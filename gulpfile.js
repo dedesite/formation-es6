@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const eslint = require("gulp-eslint");
 const jasmineBrowser = require("gulp-jasmine-browser");
-const watch = require("gulp-watch");
+const webpack = require("webpack-stream");
 
 gulp.task("lint", () => {
   // ESLint ignores files with "node_modules" paths.
@@ -31,7 +31,15 @@ gulp.task("jasmine", function() {
   const filesForTest = ["src/**/*.js", "spec/**/*-spec.js"];
   return gulp
     .src(filesForTest)
-    .pipe(watch(filesForTest))
+    .pipe(
+      webpack({
+        watch: true,
+        output: {
+          filename: "formation-es6.js"
+        }
+      })
+    )
+    .pipe(gulp.dest("dist"))
     .pipe(jasmineBrowser.specRunner())
     .pipe(jasmineBrowser.server({ port: 8888 }));
 });

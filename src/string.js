@@ -1,16 +1,12 @@
-"use strict";
-
-function getWelcomeStr(subject) {
+export function getWelcomeStr(subject) {
   return `Bienvenue dans cette formation sur ${subject}`;
 }
 
-function getMultiplicationStr(a, b) {
-  return (
-    `Il est possible d'afficher : ${a * b} sans concaténation de chaine`
-  );
+export function getMultiplicationStr(a, b) {
+  return `Il est possible d'afficher : ${a * b} sans concaténation de chaine`;
 }
 
-function getFunctionStr(name) {
+export function getFunctionStr(name) {
   function returnName(name) {
     return name;
   }
@@ -19,17 +15,15 @@ function getFunctionStr(name) {
 
 // Il est aussi possible d'utiliser les template literals pour des chaînes
 // sur plusieurs lignes qui contiennent des retours à la lignes.
-function getMultiLineStr() {
-  return (
-    `Ceci est une longue chaîne de caractère avec des 
+export function getMultiLineStr() {
+  return `Ceci est une longue chaîne de caractère avec des 
 retours à la ligne
 puis d'autres
-et encore d'autres`
-  );
+et encore d'autres`;
 }
 
 // Si pas de retour à la ligne, la seule solution est de laisser la concaténation
-function getSingleLineStr() {
+export function getSingleLineStr() {
   return (
     "Ceci est une longue chaîne de caractère sans" +
     "retours à la ligne " +

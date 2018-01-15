@@ -1,6 +1,4 @@
-"use strict";
-
-class Animal {
+export class Animal {
   constructor(name) {
     this._name = name;
   }
@@ -21,7 +19,7 @@ class Animal {
 // http://exploringjs.com/es6/ch_classes.html#_static-data-properties
 Animal.type = "Animal";
 
-class Cat extends Animal {
+export class Cat extends Animal {
   static getFamily() {
     return "Felidae";
   }
@@ -31,7 +29,7 @@ class Cat extends Animal {
 }
 Cat.type = "Cat";
 
-class Dog extends Animal {
+export class Dog extends Animal {
   talk() {
     return "Waf waf";
   }

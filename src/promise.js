@@ -1,5 +1,3 @@
-"use strict";
-
 function asyncFunc(func) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -35,11 +33,11 @@ function getLanguages() {
   };
 }
 
-function getAsyncCreators() {
+export function getAsyncCreators() {
   return asyncFunc(getCreators).then(data => data.creators);
 }
 
-function getAsyncLanguageCreator(language) {
+export function getAsyncLanguageCreator(language) {
   let lang;
   return asyncFunc(getLanguages)
     .then(data => {
@@ -64,7 +62,7 @@ function getAsyncLanguageCreator(language) {
     });
 }
 
-function getAllData() {
+export function getAllData() {
   return Promise.all([asyncFunc(getLanguages), getAsyncCreators()]).then(
     ([{ languages }, creators]) => {
       return { languages, creators };

@@ -1,10 +1,8 @@
-"use strict";
-
-function multiply(a = 1, b = 1) {
+export function multiply(a = 1, b = 1) {
   return a * b;
 }
 
-function operation({ type = "add", a = 1, b = 1 }) {
+export function operation({ type = "add", a = 1, b = 1 }) {
   switch (type) {
     case "add":
       return a + b;
@@ -15,7 +13,7 @@ function operation({ type = "add", a = 1, b = 1 }) {
   }
 }
 
-function getMax(...args) {
+export function getMax(...args) {
   let values = [];
   for (const arg of args) {
     if (typeof arg === "number") {
@@ -27,14 +25,14 @@ function getMax(...args) {
   return Math.max(...values);
 }
 
-function convertToArray(iterable) {
+export function convertToArray(iterable) {
   return [...iterable];
 }
 
-function createDate(arr) {
+export function createDate(arr) {
   return new Date(...arr);
 }
 
-function getDate([year, month, day]) {
+export function getDate([year, month, day]) {
   return { year, month, day };
 }
