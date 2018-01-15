@@ -95,7 +95,7 @@ Accesseur
 
 Introspection
 
-+ de fonction pour `Array`
+\+ de fonction pour `Array`
 
 -----
 
@@ -327,6 +327,29 @@ Plus de notation octale pour les nombres `010`
 
 -----
 
+# ES 5 - Array
+## every
+
+    function isBiggerThan10(element, index, array) {
+      return element > 10;
+    }
+
+    [2, 12, 8, 1, 4].some(isBiggerThan10);  // false
+    [12, 15, 18, 11, 14].some(isBiggerThan10); // true
+
+-----
+
+# ES 5 - Array
+## filter
+
+    const words = ['spray', 'limit', 'elite', 
+        'exuberant', 'destruction', 'present'];
+
+    const result = words.filter(word => word.length > 6);
+    // result == ["exuberant", "destruction", "present"]
+
+-----
+
 # ES 6 - ECMAScript 2015
 
 Mise à jour majeure
@@ -486,13 +509,18 @@ Nouveau signe : \`\`
 -----
 
 # ES 6
-## Modules
+## Modules #1
 
 Synthèse des modules AMD et CommonJs
 
 Strict mode par défaut
 
 Variables locales au module
+
+-----
+
+# ES 6
+## Modules #2
 
 Asynchrone
 
@@ -505,7 +533,7 @@ Utilisable via l'attribut
 -----
 
 # ES 6
-## Modules
+## Modules #3
 
     //------ lib.js ------
     export const sqrt = Math.sqrt;
@@ -524,9 +552,131 @@ Utilisable via l'attribut
 -----
 
 # ES 6
-## Array.find
+## Maps et Sets
 
-const a = ['a', 'b', 10];
+Nouveaux types
+
+Iterables
+
+
+
+-----
+
+# ES 6
+## Maps #1
+
+    const map = new Map(); // create an empty Map
+    const KEY = {}; // Can use object as key
+
+    map.set(KEY, 123);
+    map.get(KEY)
+    // 123
+    map.has(KEY)
+    // true
+    map.delete(KEY);
+    // true
+    map.has(KEY)
+    // false
+
+-----
+
+# ES 6
+## Maps #2
+
+    const map = new Map([
+        [ 1, 'one' ],
+        [ 2, 'two' ],
+        [ 3, 'three' ]
+    ]);
+
+-----
+
+# ES 6
+## Maps iteration
+
+    for (const key of map.keys()) {
+        console.log(key);
+    }
+
+    for (const val of map.values()) {
+        console.log(val);
+    }
+
+    for (const [key, value] of map) { // Or map.entries()
+        console.log(key, value);
+    }
+
+-----
+
+# ES 6
+## Sets
+
+    const arr = [5, 1, 5, 7, 7, 5];
+    const set = new Set(arr);
+    // Set [ 5, 1, 7 ]
+
+-----
+
+# ES 6
+## Sets iteration
+
+    const set = new Set(['red', 'green', 'blue']);
+    for (const x of set) { // .keys and .values are the same
+        console.log(x);
+    }
+
+-----
+
+# ES 6
+## Array.prototype.find
+
+    const arr = [5, 12, 8, 130, 44];
+
+    const found = arr.find(el =>
+      return el > 10;
+    });
+    // found === 12
+
+-----
+
+# ES 6
+## Array.prototype.findIndex
+
+    const arr = [5, 12, 8, 130, 44];
+
+    const ind = arr.findIndex(el =>
+      return el > 10;
+    });
+    // ind === 1
+
+-----
+
+# ES 6
+## Array.prototype.fill
+
+    const a = new Array(5).fill("a")
+    // a == ["a", "a", "a", "a", "a"]
+    const arr1 = [1, 2, 3, 4];
+    arr1.fill(5, 1)
+    // arr1 == [1, 5, 5, 5]
+    arr1.fill(6)
+    // arr1 == [6, 6, 6, 6]
+
+-----
+
+# ES 6
+## Array.from
+
+    Array.from('foo'); 
+    // ["f", "o", "o"]
+
+    var s = new Set(['foo', 'bar']); 
+    Array.from(s); 
+    // ["foo", "bar"]
+
+    var m = new Map([[1, 2], [2, 4], [4, 8]]);
+    Array.from(m); 
+    // [[1, 2], [2, 4], [4, 8]]
 
 -----
 
