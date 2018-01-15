@@ -488,9 +488,47 @@ Nouveau signe : \`\`
 # ES 6
 ## Modules
 
-Synthèse des modules AMD et Node.js
+Synthèse des modules AMD et CommonJs
+
+Strict mode par défaut
+
+Variables locales au module
+
+Asynchrone
+
+import déclaratifs et via Promise
+
+Utilisable via l'attribut
+
+      &lt;script type="module"&gt;
 
 -----
+
+# ES 6
+## Modules
+
+    //------ lib.js ------
+    export const sqrt = Math.sqrt;
+    export function square(x) {
+        return x * x;
+    }
+    export function diag(x, y) {
+        return sqrt(square(x) + square(y));
+    }
+
+    //------ main.js ------
+    import { square, diag } from 'lib';
+    console.log(square(11)); // 121
+    console.log(diag(4, 3)); // 5
+
+-----
+
+# ES 6
+## Array.find
+
+const a = ['a', 'b', 10];
+
+
 
 # Étapes importantes 
 ## ES 6 - ECMAScript 2015 (2)
