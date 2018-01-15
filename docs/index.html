@@ -67,6 +67,27 @@ Evolutions fréquentes et graduelles
 
 -----
 
+# Plateformes hétérogènes
+## JS n'est pas le même partout
+
+Navigateurs pas tous au même niveau d'implémentation
+
+Navigateurs pas forcément à jour
+
+Node.js
+
+-----
+
+# Solution : les transpileurs !
+
+Babel pour ES6
+
+Traceur (plus trop utilisé)
+
+Typescript
+
+-----
+
 # Étapes importantes
 
 3ème édition
@@ -533,6 +554,28 @@ Utilisable via l'attribut
 -----
 
 # ES 6
+## Modules AMD 
+
+Chargement asynchrone
+
+Syntaxe plus complexe
+
+Plutôt fait pour le navigateur
+
+-----
+
+# ES 6
+## Modules CommonJs 
+
+Chargement synchrone
+
+Syntaxe compacte
+
+Fait pour le server Node.js
+
+-----
+
+# ES 6
 ## Modules #3
 
     //------ lib.js ------
@@ -558,7 +601,7 @@ Nouveaux types
 
 Iterables
 
-
+Possibilité de faire des Maps sur n'importe quelle valeur
 
 -----
 
@@ -680,25 +723,55 @@ Iterables
 
 -----
 
-# Étapes importantes 
-## ES 6 - ECMAScript 2015 (2)
+# ES 6
+## Destructuring
 
-Promises
+Très utile
 
-Iterator
+    const {type, a, b} = {type: "add", a: 1, b: 2};
+    // type === "add", a === 1, b === 2
+    const {type: t, a: foo, b: bar} = {type: "add", a: 1, b: 2};
+    // t === "add", foo ===1, bar === 2
+    const [year, month] = [2018, 1];
+    // year === 2018, month === 1
+    // Fonctionne aussi pour les fonctions
+    function operation({ type = "add", a = 1, b = 1 }) {
+        // ...
+    }
+
+-----
+
+# ES 6
+## Spread operator `...`
+
+"Explose" un tableau en variables
+
+    new Date(...["2017", "11", "16", "10"]);
+    const a = [1, 2, 3];
+    const b = [4, 5, 6];
+    const concat = [...a, ...b];
+
+-----
+
+# ES 6
+## Parameter rest operator `...`
+
+Uniquement sur les paramètres de fonction
+
+Remplace `arguments`
+
+    function getMax(x, y, ...args) {
+        for(const arg of args) {
+            // Ne contient pas x et y
+        }
+    }
 
 -----
 
 # Étapes importantes 
-## ES 6 - ECMAScript 2015 (3)
+## ES 6 - ECMAScript 2015 (2)
 
-Spread/Rest operator
-
-Meilleure "lib standard"
-
-for/of
-
-et bien d'autres améliorations...
+Promises
 
 -----
 
@@ -710,11 +783,6 @@ async/await
 trailing comma
 
 SharedBufferArray et Atomics
-
-# Js et la standardisation
-## One Js
-
-Retro compatibilité => "One Js"
 
 -----
 
@@ -729,26 +797,6 @@ Retro compatibilité => "One Js"
         return thisValue;
     }
 
------
-
-# Plateformes hétérogènes
-## JS n'est pas le même partout
-
-Navigateurs pas tous au même niveau d'implémentation
-
-Navigateurs pas forcément à jour
-
-Node.js
-
------
-
-# Solution : les transpileurs !
-
-Babel pour ES6
-
-Traceur (plus trop utilisé)
-
-Typescript
 
 </div>
 </div>
