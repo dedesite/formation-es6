@@ -104,7 +104,7 @@ Introspection
 
 Sous ensemble plus sécurisé
 
-Déclaration `'use script';`
+Déclaration `'use strict';`
 
 Pour un fichier ou une fonction
 
@@ -465,7 +465,30 @@ Nouveau signe : \`\`
 
 -----
 
-Modules
+# ES 6
+## Classes
+
+    class Cat extends Animal {
+      constructor(name) {
+        super(name);
+        this.numLegs = 4;
+      }
+
+      static get family() {
+        return "felidae";
+      }
+
+      talk() {
+        return "miaou";
+      }
+    }
+
+-----
+
+# ES 6
+## Modules
+
+Synthèse des modules AMD et Node.js
 
 -----
 
