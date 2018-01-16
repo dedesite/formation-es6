@@ -39,11 +39,15 @@ function getAsyncCreators() {
   return asyncFunc(getCreators).then(data => data.creators);
 }
 
+function getAsyncLanguages() {
+  return asyncFunc(getLanguages).then(data => data.languages);
+}
+
 function getAsyncLanguageCreator(language) {
   let lang;
-  return asyncFunc(getLanguages)
-    .then(data => {
-      lang = data.languages.find(lang => {
+  return getAsyncLanguages()
+    .then(languages => {
+      lang = languages.find(lang => {
         return lang.name === language;
       });
       if (lang) {
@@ -52,8 +56,8 @@ function getAsyncLanguageCreator(language) {
         return Promise.reject("Unknow language");
       }
     })
-    .then(data => {
-      const creator = data.find(creator => {
+    .then(creators => {
+      const creator = creators.find(creator => {
         return creator.id === lang.creator;
       });
       if (creator) {
@@ -65,8 +69,8 @@ function getAsyncLanguageCreator(language) {
 }
 
 function getAllData() {
-  return Promise.all([asyncFunc(getLanguages), getAsyncCreators()]).then(
-    ([{ languages }, creators]) => {
+  return Promise.all([getAsyncLanguages(), getAsyncCreators()]).then(
+    ([languages, creators]) => {
       return { languages, creators };
     }
   );

@@ -9,21 +9,26 @@ describe("Promise", function() {
     });
   });
 
-  it("Return an error on probleme when retrieving data", function() {
-    // Mock getCreators
+  describe("Error on getCreators", function() {
     const realFunc = getCreators;
-    getCreators = function() {
-      return { err: "Error when retriving data", creators: undefined };
-    };
+    beforeAll(function() {
+      // Mock getCreators
+      getCreators = function() {
+        return { err: "Error when retriving data", creators: undefined };
+      };
+    });
 
-    return getAsyncCreators()
-      .then(creators => {
-        getCreators = realFunc;
-      })
-      .catch(err => {
-        expect(err).toBe("Error when retriving data");
-        getCreators = realFunc;
-      });
+    afterAll(function() {
+      getCreators = realFunc;
+    });
+
+    it("Return an error on probleme when retrieving data", function() {
+      return getAsyncCreators()
+        .then(users => {})
+        .catch(err => {
+          expect(err).toBe("Error when retriving data");
+        });
+    });
   });
 
   it("Return the creator of a specified language", function() {
