@@ -769,6 +769,17 @@ Remplace `arguments`
 -----
 
 # ES 6
+## Promises
+
+Rend plus lisible l'écriture de code asynchrone
+
+Evite le "callback hell"
+
+Centralise la gestion d'erreur
+
+-----
+
+# ES 6
 ## Avant les Promises
 
     asyncCall((err, data) {
@@ -808,6 +819,36 @@ Remplace `arguments`
             })
         })
     }
+
+-----
+
+# ES 6
+## Promise.all
+
+    Promise.all([
+        asyncFunc1(),
+        asyncFunc2()
+    ]).then([data1, data2]) => {
+        
+    }).catch(err => {
+        // Handle errors 
+    });
+
+-----
+
+# ES 6
+## Promise : chainage
+
+    asyncFunc()
+        .then(data => {
+            return asyncFunc2();
+        })
+        .then(data => {
+            return something;
+        })
+        .catch(err => {
+            // Handle errors
+        });
 
 -----
 
