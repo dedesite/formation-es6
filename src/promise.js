@@ -30,14 +30,23 @@ function getAsyncCreators(callback) {
   });
 }
 
-function getAsyncLanguageCreator(language, callback) {
+function getAsyncLanguages(callback) {
   asyncFunc(getLanguages, function(data) {
-    var lang = data.languages.find(function(lang) {
+    callback(data.err, data.languages);
+  });
+}
+
+function getAsyncLanguageCreator(language, callback) {
+  getAsyncLanguages(function(err, languages) {
+    if (err) {
+      callback("Unknow error", undefined);
+    }
+    var lang = languages.find(function(lang) {
       return lang.name === language;
     });
     if (lang) {
-      getAsyncCreators(function(err, data) {
-        var creator = data.find(function(creator) {
+      getAsyncCreators(function(err, creators) {
+        var creator = creators.find(function(creator) {
           return creator.id === lang.creator;
         });
         callback(undefined, creator);
@@ -50,8 +59,8 @@ function getAsyncLanguageCreator(language, callback) {
 
 function getAllData(callback) {
   const allData = {};
-  asyncFunc(getLanguages, function(data) {
-    allData.languages = data.languages;
+  getAsyncLanguages(function(err, data) {
+    allData.languages = data;
     if (allData.creators) {
       callback(err, allData);
     }
