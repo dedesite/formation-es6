@@ -768,10 +768,46 @@ Remplace `arguments`
 
 -----
 
-# Étapes importantes 
-## ES 6 - ECMAScript 2015 (2)
+# ES 6
+## Avant les Promises
 
-Promises
+    asyncCall((err, data) {
+        if(err) {
+            // Handle error
+        } else {
+            // Do something with data
+        }
+    });
+
+-----
+
+# ES 6
+## Promises #1
+
+    asyncCall()
+        .then(data => {
+            // Do something with data  
+        })
+        .catch(err => {
+            // Handle error
+        })
+
+-----
+
+# ES 6
+## Promises #2
+
+    function asyncCall() {
+        return new Promise((resolve, reject) {
+            makeAsyncCall((data) => {
+                if(data.err) {
+                    reject(data.err);
+                } else {
+                    resolve(data.value);
+                }
+            })
+        })
+    }
 
 -----
 
