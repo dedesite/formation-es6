@@ -3,11 +3,15 @@
 function asyncFunc(func) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const data = func();
-      if (data.err) {
-        reject(data.err);
-      } else {
-        resolve(data);
+      try {
+        const data = func();
+        if (data.err) {
+          reject(data.err);
+        } else {
+          resolve(data);
+        }
+      } catch (e) {
+        reject(e);
       }
     }, 200);
   });
