@@ -14,8 +14,6 @@
 <div id="markdown" class="step slide markdown" data-rel-x="0" data-rel-y="900">
 # Formation Javascript Avancé
 ## Andréas Livet
-### Floria Consulting
-### Du 15 au 16 janvier 2018
 
 -----
 
@@ -355,8 +353,8 @@ Plus de notation octale pour les nombres `010`
       return element > 10;
     }
 
-    [2, 12, 8, 1, 4].some(isBiggerThan10);  // false
-    [12, 15, 18, 11, 14].some(isBiggerThan10); // true
+    [2, 12, 8, 1, 4].every(isBiggerThan10);  // false
+    [12, 15, 18, 11, 14].every(isBiggerThan10); // true
 
 -----
 
@@ -782,7 +780,7 @@ Centralise la gestion d'erreur
 # ES 6
 ## Avant les Promises
 
-    asyncCall((err, data) {
+    asyncCall((err, data) => {
         if(err) {
             // Handle error
         } else {
