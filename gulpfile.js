@@ -23,9 +23,9 @@ gulp.task("lint", () => {
   );
 });
 
-gulp.task("default", ["lint"], () => {
+gulp.task("default", gulp.series("lint", () => {
   // place code for your default task here
-});
+}));
 
 gulp.task("jasmine", function() {
   const filesForTest = ["src/**/*.js", "spec/**/*-spec.js"];
