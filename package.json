@@ -1,8 +1,7 @@
 {
   "name": "formation-es6",
   "version": "1.0.0",
-  "description":
-    "Ensemble d'exercices dans le cadre d'une formation Javascript avancé",
+  "description": "Ensemble d'exercices dans le cadre d'une formation Javascript avancé",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -11,15 +10,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config webpack.config.js"
   },
-  "keywords": ["js", "es6"],
+  "keywords": [
+    "js",
+    "es6"
+  ],
   "author": "Andréas Livet",
   "license": "GPL-3.0",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0",
-    "gulp-jasmine-browser": "^2.0.1",
-    "jasmine": "^2.8.0",
-    "webpack": "^3.10.0",
-    "webpack-stream": "^4.0.0"
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-jasmine-browser": "^4.1.0",
+    "gulp-watch": "^5.0.1",
+    "jasmine": "^3.3.1",
+    "webpack": "^4.29.2",
+    "webpack-stream": "^5.2.1"
   }
 }
